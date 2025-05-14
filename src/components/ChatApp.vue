@@ -221,7 +221,7 @@ const sendMessage = async () => {
   scrollToBottom()
 
   try {
-    await axios.post('http://127.0.0.1:8000/api/chatbot', {
+    await axios.post(import.meta.env.VITE_API_URL+'/chatbot', {
       prompt: userMsg,
       conversation_id: conversationId.value
     })
