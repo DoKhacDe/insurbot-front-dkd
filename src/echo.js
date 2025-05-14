@@ -9,7 +9,7 @@ const echo = new Echo({
     wsHost: import.meta.env.VITE_WSBHOST,
     cluster: '',
     wsPort: 6001,
-    forceTLS: true,
+    forceTLS: false,
     disableStats: true,
 })
 
