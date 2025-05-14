@@ -27,3 +27,28 @@
 .chat-scrollbar:hover::-webkit-scrollbar-track {
     background-color: rgba(55, 65, 81, 0.2); /* gray-700 */
 }
+
+.typing-dots {
+    display: inline-flex;
+    align-items: center;
+}
+.typing-dots .dot-1,
+.typing-dots .dot-2,
+.typing-dots .dot-3 {
+    animation: blink 1.4s infinite both;
+    font-weight: bold;
+}
+.typing-dots .dot-2 {
+    animation-delay: 0.2s;
+}
+.typing-dots .dot-3 {
+    animation-delay: 0.4s;
+}
+@keyframes blink {
+    0%, 80%, 100% {
+        opacity: 0;
+    }
+    40% {
+        opacity: 1;
+    }
+}
