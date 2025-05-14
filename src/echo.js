@@ -10,7 +10,7 @@ const echo = new Echo({
     wsPath: '/app',
     cluster: '',
     wsPort: 6001,
-    forceTLS: false,
+    forceTLS: true,
     disableStats: true,
 })
 
