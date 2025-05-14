@@ -239,6 +239,7 @@ const sendMessage = async () => {
 
 echo.channel('chatroom').listen('MessageSent', (e) => {
   loading.value = false
+  console.log(e)
   messages.value.push({
     sender: 'bot',
     text: e.message
