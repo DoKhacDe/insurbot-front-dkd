@@ -69,7 +69,10 @@
             </div>
 
             <!-- Loading indicator -->
-            <div v-if="loading" class="text-gray-500 italic text-sm pl-2"><img :src="insurbotLogo" alt="logo" class="w-[20px] mr-2"/> Insurbot đang nhập...</div>
+            <div v-if="loading" class="text-gray-500 italic text-sm pl-2">
+              <img :src="insurbotLogo" alt="logo" class="w-[20px] mr-2"/>
+              <span class="typing-dots">Insurbot đang nhập<span class="dot-1">.</span><span class="dot-2">.</span><span class="dot-3">.</span></span>
+            </div>
           </div>
 
           <!-- Input -->
@@ -142,7 +145,7 @@ const closePopup = () => {
 // Reload chat: clear messages and start new conversation
 const reloadChat = () => {
   messages.value = []
-  conversationId.value = generateUUID()
+  // conversationId.value = generateUUID()
   localStorage.removeItem('chatData')
   chatStarted.value = false
 }
@@ -221,7 +224,7 @@ const sendMessage = async () => {
   scrollToBottom()
 
   try {
-    await axios.post(import.meta.env.VITE_API_URL+'/chatbot', {
+    await axios.post('http://127.0.0.1:8000/api/chatbot', {
       prompt: userMsg,
       conversation_id: conversationId.value
     })
@@ -237,14 +240,17 @@ const sendMessage = async () => {
   }
 }
 
-echo.channel('chatroom').listen('MessageSent', (e) => {
-  loading.value = false
-  console.log(e)
-  messages.value.push({
-    sender: 'bot',
-    text: e.message
-  })
-  saveMessages()
-  scrollToBottom()
+watch(conversationId, (newId) => {
+  if (newId) {
+    echo.channel('chatroom_' + newId).listen('MessageSent', (e) => {
+      loading.value = false
+      messages.value.push({
+        sender: 'bot',
+        text: e.message
+      })
+      saveMessages()
+      scrollToBottom()
+    })
+  }
 })
 </script>
