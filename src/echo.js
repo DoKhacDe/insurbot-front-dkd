@@ -7,7 +7,6 @@ const echo = new Echo({
     broadcaster: 'reverb',
     key: import.meta.env.VITE_PUSHER_APP_KEY,
     wsHost: import.meta.env.VITE_WSBHOST,
-    path: '/app',
     cluster: '',
     wsPort: 6001,
     forceTLS: true,
