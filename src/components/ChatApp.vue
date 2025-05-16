@@ -82,7 +82,7 @@
                 rows="1"
                 maxlength="200"
                 v-model="message"
-                @keyup.enter="sendMessage"
+                @keyup="handleKeyUp"
                 placeholder="Nhập tin nhắn..."
                 class="resize-none flex-1 px-4 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-primary/50 focus:ring focus:border-primary bg-white text-gray-800 placeholder-gray-500"
             />
@@ -142,6 +142,13 @@ const loadMessages = () => {
 
 const closePopup = () => {
   emit('close');
+};
+
+const handleKeyUp = (event) => {
+  if (event.key === 'Enter' && !event.shiftKey) {
+    event.preventDefault();
+    sendMessage();
+  }
 };
 
 // Reload chat: clear messages and start new conversation
@@ -223,7 +230,6 @@ onMounted(async () => {
 })
 
 watch(() => conversationId.value, (newId, oldId) => {
-  console.log(oldId)
   if (oldId) {
     echo.leave(`chatroom_${oldId}`);
   }
