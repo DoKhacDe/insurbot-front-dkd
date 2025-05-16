@@ -61,7 +61,7 @@
                   <!-- Message content -->
                   <div
                       v-html="renderMarkdown(msg.text)"
-                      class="prose prose-sm max-w-none leading-snug space-y-2"
+                      class="prose prose-sm max-w-none leading-snug space-y-2 break-words"
                       :class="msg.sender === 'user' ? 'text-white' : 'text-gray-700'"
                   ></div>
                 </div>
