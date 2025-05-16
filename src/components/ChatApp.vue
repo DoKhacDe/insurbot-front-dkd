@@ -104,7 +104,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, nextTick, watch, watchEffect } from 'vue'
+import {ref, onMounted, nextTick, watch} from 'vue'
 import axios from 'axios'
 import echo from '../echo.js'
 import { marked } from 'marked'
@@ -127,6 +127,7 @@ const loading = ref(false)
 const chatBox = ref(null)
 const chatStarted = ref(false)
 const conversationId = ref('')
+let currentMessage = null // Không cần ref vì chúng ta sẽ quản lý reactivity qua messages
 
 // Load messages from localStorage
 const loadMessages = () => {
@@ -146,9 +147,9 @@ const closePopup = () => {
 // Reload chat: clear messages and start new conversation
 const reloadChat = () => {
   messages.value = []
-  // conversationId.value = generateUUID()
   localStorage.removeItem('chatData')
   chatStarted.value = false
+  currentMessage = null
 }
 
 // Save messages to localStorage
@@ -162,24 +163,13 @@ const saveMessages = () => {
 const scrollToBottom = () => {
   nextTick(() => {
     if (chatBox.value) {
-      const scrollHeight = chatBox.value.scrollHeight
-      chatBox.value.scrollTop = scrollHeight
-      // Retry scroll in case of rendering delay
-      requestAnimationFrame(() => {
-        if (chatBox.value && chatBox.value.scrollTop !== chatBox.value.scrollHeight) {
-          chatBox.value.scrollTop = chatBox.value.scrollHeight
-        }
-      })
+      chatBox.value.scrollTop = chatBox.value.scrollHeight
     }
   })
 }
 
-watchEffect(() => {
-  scrollToBottom()
-}, { deep: true })
-
 const renderMarkdown = (text) => {
-  return marked.parse(text || '')
+  return marked.parse(text || '', { async: false })
 }
 
 const startChat = () => {
@@ -192,24 +182,6 @@ const startChat = () => {
   saveMessages()
   scrollToBottom()
 }
-
-watch(chatStarted, (started) => {
-  if (started) {
-    nextTick(() => {
-      scrollToBottom()
-    })
-  }
-})
-
-onMounted(async () => {
-  loadMessages()
-  await nextTick()
-  scrollToBottom()
-
-  setTimeout(() => {
-    scrollToBottom()
-  }, 200)
-})
 
 const sendMessage = async () => {
   const userMsg = message.value.trim()
@@ -225,12 +197,13 @@ const sendMessage = async () => {
   scrollToBottom()
 
   try {
-    await axios.post(import.meta.env.VITE_API_URL+'/chatbot', {
+    await axios.post(import.meta.env.VITE_API_URL + '/chatbot', {
       prompt: userMsg,
       conversation_id: conversationId.value
     })
     // Bot reply will come through Echo
   } catch (error) {
+    console.error('Error sending message:', error)
     loading.value = false
     messages.value.push({
       sender: 'bot',
@@ -241,17 +214,42 @@ const sendMessage = async () => {
   }
 }
 
-watch(conversationId, (newId) => {
+onMounted(async () => {
+  loadMessages()
+  await nextTick()
+  scrollToBottom()
+})
+
+watch(() => conversationId.value, (newId) => {
   if (newId) {
-    echo.channel('chatroom_' + newId).listen('MessageSent', (e) => {
-      loading.value = false
-      messages.value.push({
-        sender: 'bot',
-        text: e.message
-      })
-      saveMessages()
-      scrollToBottom()
-    })
+    echo.channel('chatroom_' + newId)
+        .listen('MessageChunkSent', (e) => {
+          loading.value = false
+          if (!currentMessage) {
+            currentMessage = {
+              sender: 'bot',
+              text: e.chunk
+            }
+            messages.value.push(currentMessage)
+          } else {
+
+            messages.value = [
+              ...messages.value.slice(0, -1),
+              { ...currentMessage, text: currentMessage.text + e.chunk }
+            ]
+          }
+
+          nextTick(() => {
+            scrollToBottom()
+          })
+        })
+        .listen('MessageStreamEnded', () => {
+          currentMessage = null
+          saveMessages()
+          nextTick(() => {
+            scrollToBottom()
+          })
+        })
   }
 })
 </script>
