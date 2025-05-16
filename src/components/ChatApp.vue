@@ -104,7 +104,7 @@
 </template>
 
 <script setup>
-import {ref, onMounted, nextTick, watch} from 'vue'
+import {ref, onMounted, nextTick, watch, onUnmounted} from 'vue'
 import axios from 'axios'
 import echo from '../echo.js'
 import { marked } from 'marked'
@@ -149,6 +149,8 @@ const reloadChat = () => {
   messages.value = []
   localStorage.removeItem('chatData')
   chatStarted.value = false
+  loading.value = false
+  conversationId.value = ''
   currentMessage = null
 }
 
@@ -220,8 +222,13 @@ onMounted(async () => {
   scrollToBottom()
 })
 
-watch(() => conversationId.value, (newId) => {
+watch(() => conversationId.value, (newId, oldId) => {
+  console.log(oldId)
+  if (oldId) {
+    echo.leave(`chatroom_${oldId}`);
+  }
   if (newId) {
+
     echo.channel('chatroom_' + newId)
         .listen('MessageChunkSent', (e) => {
           loading.value = false
