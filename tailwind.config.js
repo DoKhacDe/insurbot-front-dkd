@@ -15,7 +15,7 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['SVN-Gilroy', 'sans-serif'],
+        sans: ['Be Vietnam Pro', 'sans-serif'],
       }
     },
   },

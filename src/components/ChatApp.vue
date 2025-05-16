@@ -45,7 +45,7 @@
                   :class="[
                 'px-4 py-3 rounded-xl break-words mt-3',
                 msg.sender === 'user'
-                  ? 'bg-blue-500 text-white max-w-xs ml-5'
+                  ? 'bg-primary text-white max-w-xs ml-5'
                   : 'bg-gradient-to-r from-secondary/10 to-primary/10 text-gray-700 max-w-sm mr-5'
               ]"
               >
@@ -72,7 +72,7 @@
             <!-- Loading indicator -->
             <div v-if="loading" class="text-gray-500 italic text-sm pl-2">
               <img :src="insurbotLogo" alt="logo" class="w-[20px] mr-2"/>
-              <span class="typing-dots">Insurbot đang nhập<span class="dot-1">.</span><span class="dot-2">.</span><span class="dot-3">.</span></span>
+              <span class="typing-dots">Insurbot đang phân tích<span class="dot-1">.</span><span class="dot-2">.</span><span class="dot-3">.</span></span>
             </div>
           </div>
 
@@ -228,7 +228,7 @@ watch(() => conversationId.value, (newId) => {
           if (!currentMessage) {
             currentMessage = {
               sender: 'bot',
-              text: e.chunk
+              text: ''
             }
             messages.value.push(currentMessage)
           } else {
