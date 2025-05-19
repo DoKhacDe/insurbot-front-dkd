@@ -79,16 +79,18 @@
           <!-- Input -->
           <div class="pt-4 relative flex items-center gap-2">
             <textarea
+                :disabled="disable"
                 rows="1"
                 maxlength="200"
                 v-model="message"
                 @keyup="handleKeyUp"
                 placeholder="Nhập tin nhắn..."
-                class="resize-none flex-1 px-4 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-primary/50 focus:ring focus:border-primary bg-white text-gray-800 placeholder-gray-500"
+                class="resize-none flex-1 px-4 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-primary/50 focus:ring focus:border-primary bg-white text-gray-800 placeholder-gray-500 disabled:opacity-50 disabled:cursor-not-allowed"
             />
             <button
+                :disabled="disable"
                 @click="sendMessage"
-                class="px-4 py-2 bg-primary text-white rounded-xl hover:bg-primary/90 transition-colors flex items-center justify-center"
+                class="px-4 py-2 bg-primary text-white rounded-xl hover:bg-primary/90 transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
                 title="Send"
             >
               <div class="flex items-center justify-center">
@@ -124,6 +126,7 @@ const emit = defineEmits(['close']);
 const messages = ref([])
 const message = ref('')
 const loading = ref(false)
+const disable = ref(false)
 const chatBox = ref(null)
 const chatStarted = ref(false)
 const conversationId = ref('')
@@ -202,6 +205,7 @@ const sendMessage = async () => {
   })
   message.value = ''
   loading.value = true
+  disable.value = true
   saveMessages()
   scrollToBottom()
 
@@ -258,6 +262,7 @@ watch(() => conversationId.value, (newId, oldId) => {
         })
         .listen('MessageStreamEnded', () => {
           currentMessage = null
+          disable.value = false
           saveMessages()
           nextTick(() => {
             scrollToBottom()
