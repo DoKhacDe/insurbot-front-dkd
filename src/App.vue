@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import ChatApp from "@/components/ChatApp.vue";
 import insurbotLogo from '@/assets/imgs/logo.png';
+import {bgImageBase64} from '@/assets/images';
 
 const showModal = ref(false);
 
@@ -26,7 +27,7 @@ const handleClose = () => {
       showModal ? 'translate-y-20 opacity-0' : 'translate-y-0 opacity-100'
     ]"
   >
-    <img :src="insurbotLogo" alt="logo" class="w-full"/>
+    <img :src="bgImageBase64" alt="logo" class="w-full"/>
   </button>
 
   <div
