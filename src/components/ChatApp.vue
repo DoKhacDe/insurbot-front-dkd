@@ -185,7 +185,7 @@ import echo from '../echo.js'
 import {marked} from 'marked'
 import {Listbox, ListboxButton, ListboxOptions, ListboxOption} from '@headlessui/vue'
 import {ChevronUpDownIcon, XMarkIcon} from '@heroicons/vue/20/solid'
-import insurbotLogo from '@/assets/imgs/insurbot-logo.png';
+import {insurbotLogo} from '@/assets/insurbot-logo';
 import IconSend from "@/assets/imgs/send-icon.svg";
 
 const generateUUID = () => {
