@@ -4,4 +4,9 @@ import './style.css'
 import { createApp } from 'vue'
 import App from './App.vue'
 
-createApp(App).mount('#app')
+const insurbotChat = document.createElement('div')
+insurbotChat.id = 'chat-bot-insurbot'
+document.body.appendChild(insurbotChat)
+
+
+createApp(App).mount(insurbotChat)
