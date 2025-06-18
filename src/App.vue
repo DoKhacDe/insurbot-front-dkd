@@ -19,14 +19,20 @@ const handleClose = () => {
   <button
       id="button-email-small"
       @click="toggleModal"
-
+      :class="[
+      'fixed bottom-14 right-2 z-50',
+      'p-2 font-bold cursor-pointer',
+      'w-[100px] h-[100px] rounded-full',
+      'transition-all duration-500 ease-in-out',
+      showModal ? 'translate-y-20 opacity-0' : 'translate-y-0 opacity-100'
+    ]"
   >
     <img :src="bgImageBase64" alt="logo" class="w-full"/>
   </button>
 
   <div
       :class="[
-      'fixed bottom-0 right-0 w-full h-screen z-50',
+      'fixed bottom-0 right-0 w-full  h-screen z-50',
       'transition-all duration-500 ease-in-out overflow-hidden',
       showModal ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
     ]"
@@ -37,23 +43,8 @@ const handleClose = () => {
 
 <style scoped>
 
-button#button-email-small {
-  position: fixed;
-  bottom: 3.5rem;
-  right: 0.5rem;
-  background-color: black;
-  color: white;
-  padding: 0.5rem;
+#button-email-small {
   font-size: 10px;
-  font-weight: 700;
-  cursor: pointer;
-  border: 0;
-  outline: 0;
-  z-index: 10000;
   line-height: 1rem;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
 }
-
 </style>
