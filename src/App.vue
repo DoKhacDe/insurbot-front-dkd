@@ -30,29 +30,21 @@ const handleClose = () => {
     <img :src="bgImageBase64" alt="logo" class="w-full"/>
   </button>
 
-  <div
-      :class="[
-      'fixed bottom-0 right-0 w-full  h-screen z-50',
-      'transition-all duration-500 ease-in-out overflow-hidden',
-      showModal ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
-    ]"
-  >
-    <ChatApp v-if="showModal" @close="handleClose" />
-  </div>
+<!--  <div-->
+<!--      :class="[-->
+<!--      'fixed bottom-0 right-0 w-full  h-screen z-50',-->
+<!--      'transition-all duration-500 ease-in-out overflow-hidden',-->
+<!--      showModal ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'-->
+<!--    ]"-->
+<!--  >-->
+<!--    <ChatApp v-if="showModal" @close="handleClose" />-->
+<!--  </div>-->
 </template>
 
 <style scoped>
 
-button#button-email-small {
-  position: fixed;
-  bottom: 3.5rem;
-  right: 0.5rem;
-  border: 0;
-  outline: 0;
-  z-index: 10000;
+#button-email-small {
+  font-size: 10px;
   line-height: 1rem;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
 }
 </style>
