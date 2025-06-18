@@ -30,15 +30,15 @@ const handleClose = () => {
     <img :src="bgImageBase64" alt="logo" class="w-full"/>
   </button>
 
-<!--  <div-->
-<!--      :class="[-->
-<!--      'fixed bottom-0 right-0 w-full  h-screen z-50',-->
-<!--      'transition-all duration-500 ease-in-out overflow-hidden',-->
-<!--      showModal ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'-->
-<!--    ]"-->
-<!--  >-->
-<!--    <ChatApp v-if="showModal" @close="handleClose" />-->
-<!--  </div>-->
+  <div
+      :class="[
+      'fixed bottom-0 right-0 w-full h-screen z-50',
+      'transition-all duration-500 ease-in-out overflow-hidden',
+      showModal ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
+    ]"
+  >
+    <ChatApp v-if="showModal" @close="handleClose" />
+  </div>
 </template>
 
 <style scoped>
