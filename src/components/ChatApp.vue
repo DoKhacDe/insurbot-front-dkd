@@ -97,7 +97,12 @@
                @input="autoResize"
                @keyup="handleKeyUp"
                placeholder="Insurbot có thể giúp gì cho bạn?"
-               class="w-full px-3 focus:outline-none text-fg-primary rounded-xl align-bottom min-h-14 pt-3 my-0 focus:border-0"
+               class="w-full px-3 text-fg-primary rounded-xl min-h-14 pt-3
+                     border-0 focus:border-0
+                     outline-none focus:outline-none
+                     ring-0 focus:ring-0
+                     resize-none overflow-y-hidden
+              "
                style="resize: none; overflow-y: hidden; height: 44px !important; max-height: 120px; border: 0!important;"
            ></textarea>
             <div

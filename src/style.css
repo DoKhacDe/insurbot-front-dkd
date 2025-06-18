@@ -52,3 +52,11 @@
         opacity: 1;
     }
 }
+
+#input-insurbot,
+#input-insurbot:focus,
+#input-insurbot:active {
+    border: 0 !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
