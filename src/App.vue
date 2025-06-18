@@ -43,8 +43,23 @@ const handleClose = () => {
 
 <style scoped>
 
-#button-email-small {
+button#button-email-small {
+  position: fixed;
+  bottom: 3.5rem;
+  right: 0.5rem;
+  background-color: black;
+  color: white;
+  padding: 0.5rem;
   font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  border: 0;
+  outline: 0;
+  z-index: 10000;
   line-height: 1rem;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
 }
+
 </style>
