@@ -19,29 +19,67 @@ const handleClose = () => {
   <button
       id="button-email-small"
       @click="toggleModal"
-      :class="[
-      'fixed bottom-14 right-2 z-50',
-      'p-2 font-bold cursor-pointer',
-      'w-[100px] h-[100px] rounded-full',
-      'transition-all duration-500 ease-in-out',
-      showModal ? 'translate-y-20 opacity-0' : 'translate-y-0 opacity-100'
-    ]"
+      :class="['chat-button', showModal ? 'button-hidden' : 'button-visible']"
   >
-    <img :src="bgImageBase64" alt="logo" class="w-full"/>
+    <img :src="bgImageBase64" alt="logo" class="button-image"/>
   </button>
 
   <div
-      :class="[
-      'fixed bottom-0 right-0 w-full  h-screen z-50',
-      'transition-all duration-500 ease-in-out overflow-hidden',
-      showModal ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
-    ]"
+      :class="['chat-modal', showModal ? 'modal-visible' : 'modal-hidden']"
   >
     <ChatApp v-if="showModal" @close="handleClose" />
   </div>
 </template>
 
 <style scoped>
+.chat-button {
+  position: fixed;
+  bottom: 3.5rem;
+  right: 0.5rem;
+  z-index: 50;
+  padding: 0.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100px;
+  height: 100px;
+  border-radius: 9999px;
+  transition: all 500ms ease-in-out;
+}
+
+.button-hidden {
+  transform: translateY(5rem);
+  opacity: 0;
+}
+
+.button-visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.button-image {
+  width: 100%;
+}
+
+.chat-modal {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 50;
+  transition: all 500ms ease-in-out;
+  overflow: hidden;
+}
+
+.modal-visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.modal-hidden {
+  transform: translateY(100%);
+  opacity: 0;
+}
 
 #button-email-small {
   font-size: 10px;
