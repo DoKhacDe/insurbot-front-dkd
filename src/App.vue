@@ -19,13 +19,7 @@ const handleClose = () => {
   <button
       id="button-email-small"
       @click="toggleModal"
-      :class="[
-      'fixed bottom-14 right-2 z-50',
-      'p-2 font-bold cursor-pointer',
-      'w-[100px] h-[100px] rounded-full',
-      'transition-all duration-500 ease-in-out',
-      showModal ? 'translate-y-20 opacity-0' : 'translate-y-0 opacity-100'
-    ]"
+
   >
     <img :src="bgImageBase64" alt="logo" class="w-full"/>
   </button>
