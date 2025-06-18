@@ -86,7 +86,7 @@
           <div
               class="relative border rounded-xl border-gray-300 focus-within:outline-none focus-within:ring-primary/50 focus-within:ring bg-transparent text-gray-800 placeholder-gray-500 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-          <input
+          <textarea
               ref="textareaRef"
               dir="auto"
               :disabled="disable"
@@ -96,7 +96,7 @@
               @keyup="handleKeyUp"
               placeholder="Insurbot có thể giúp gì cho bạn?"
               class="w-full px-3 focus:outline-none text-fg-primary rounded-xl align-bottom min-h-14 pt-3 my-0"
-              style="resize: none; overflow-y: hidden; height: 44px !important; max-height: 120px;"
+              style="resize: none; overflow-y: hidden; height: 44px !important; max-height: 120px; border: 0!important;"
           />
             <div
                 class="flex justify-between items-center p-2"
