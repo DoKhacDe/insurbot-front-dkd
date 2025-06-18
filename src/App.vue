@@ -42,17 +42,17 @@ const handleClose = () => {
 </template>
 
 <style scoped>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 
-#button-email-small {
-  font-size: 10px;
+button#button-email-small {
+  position: fixed;
+  bottom: 3.5rem;
+  right: 0.5rem;
+  border: 0;
+  outline: 0;
+  z-index: 10000;
   line-height: 1rem;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
 }
 </style>
