@@ -110,7 +110,7 @@
                     >
                       {{ selected.name }}
                       <span
-                          v-if="selected.handle === ''"
+                          v-if="selected.id === ''"
                           class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none"
                       >
                         <ChevronUpDownIcon class="h-4 w-4 text-primary" />
@@ -143,7 +143,7 @@
                         >
                           <ListboxOption
                               v-for="option in options"
-                              :key="option.handle"
+                              :key="option.id"
                               :value="option"
                               class="cursor-pointer select-none px-4 py-2 hover:bg-primary hover:text-white"
                           >
@@ -185,7 +185,7 @@ import echo from '../echo.js'
 import {marked} from 'marked'
 import {Listbox, ListboxButton, ListboxOptions, ListboxOption} from '@headlessui/vue'
 import {ChevronUpDownIcon, XMarkIcon} from '@heroicons/vue/20/solid'
-import insurbotLogo from '@/assets/imgs/insurbot-logo.png';
+import {insurbotLogo} from '@/assets/insurbot-logo';
 import IconSend from "@/assets/imgs/send-icon.svg";
 
 const generateUUID = () => {
@@ -207,7 +207,7 @@ const conversationId = ref('')
 const textareaRef = ref(null);
 let currentMessage = null
 
-const defaultOption = { handle: '', name: 'Tư vấn sản phẩm' }
+const defaultOption = { id: '', name: 'Tư vấn sản phẩm' }
 const options = ref([])
 
 const selected = ref(defaultOption)
@@ -315,7 +315,7 @@ const sendMessage = async () => {
     await axios.post(import.meta.env.VITE_API_URL + '/chatbot', {
       prompt: userMsg,
       conversation_id: conversationId.value,
-      product: selected.value.handle ?? ''
+      product: selected.value.id ?? ''
     })
   } catch (error) {
     console.error('Error sending message:', error)
